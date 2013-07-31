@@ -1,4 +1,4 @@
-test42
+Homepage
 ======
 
 Test Assignment for 42 Coffee Cups
