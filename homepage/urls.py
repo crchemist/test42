@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'homepage.contacts.views.index'),
     url(r'^contact/$', include('homepage.contacts.urls')),
+    url(r'^requests/$', include('homepage.requests.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

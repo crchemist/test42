@@ -100,6 +100,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+
+    'homepage.requests.middleware.RequestsStoreMiddleware',
 )
 
 ROOT_URLCONF = 'homepage.urls'
@@ -123,6 +125,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
 
     'homepage.contacts',
+    'homepage.requests',
 )
 
 # A sample logging configuration. The only tangible logging

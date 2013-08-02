@@ -38,6 +38,13 @@
               </div>
         </div>
       </div>
+      <hr/>
+      <div>
+          <a href="#" data-bind="click: $root.toggleRequestsDisplay">requests</div>
+          <ul data-bind="foreach: $root.requests">
+              <li data-bind="text: $data"></li>
+          </ul>
+      </div>
     </div>
 
 
