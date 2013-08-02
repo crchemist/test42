@@ -1,0 +1,32 @@
+[
+{
+    "pk": 1, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "admin", 
+        "first_name": "", 
+        "last_name": "", 
+        "is_active": true, 
+        "is_superuser": true, 
+        "is_staff": true, 
+        "last_login": "2013-08-02T13:00:55.970", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$10000$VuqZK2J8XHzT$gWvnU71BoCAQakTsdrqrQ5JmFSz9b4nw6xKnSNugQv0=", 
+        "email": "a@a.ua", 
+        "date_joined": "2013-08-02T13:00:17.940"
+    }
+},
+{
+    "pk": 1, 
+    "model": "contacts.userprofile", 
+    "fields": {
+        "bio": "Born in Ukraine. After ending LNPU started to develop in python.", 
+        "jabber": "crchemist@khavr.com", 
+        "date_of_birth": "1987-05-22", 
+        "user": 1, 
+        "skype": "mykola_kharechko", 
+        "other_contacts": "https://www.facebook.com/mykola.kharechko\r\nhttps://bitbucket.org/crchemist"
+    }
+}
+]

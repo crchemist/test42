@@ -8,3 +8,6 @@ run:
 
 syncdb:
 	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=homepage.settings $(MANAGE) syncdb --noinput
+
+createsuperuser:
+	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=homepage.settings $(MANAGE) createsuperuser
