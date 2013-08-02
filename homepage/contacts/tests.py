@@ -20,7 +20,7 @@ class SimpleTest(TestCase):
 
 
 class HttpTest(TestCase):
-    def test_home(self):
+    def test_get_user_data(self):
         c = Client()
-        response = c.get(reverse('home'))
+        response = c.get(reverse('user_data'))
         self.assertEqual(response.status_code, 200)
