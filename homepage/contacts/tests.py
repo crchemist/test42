@@ -1,13 +1,17 @@
 from __future__ import absolute_import
 
 import json
+from StringIO import StringIO
 
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from django.conf import settings
+from django.core.handlers.wsgi import WSGIRequest
 
 from django.test import TestCase
 from django.test.client import Client
 
+from .context_processors import django_settings
 from .models import UserProfile
 
 class UserProfileTest(TestCase):
@@ -48,3 +52,13 @@ class ViewsTest(TestCase):
         response = c.get(reverse('user_data'))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.get('content-type'), 'application/json')
+
+    def test_settings_context_processor(self):
+        processors = settings.TEMPLATE_CONTEXT_PROCESSORS
+        self.assertTrue('homepage.contacts.context_processors.django_settings'
+                        in processors)
+
+        fake_request =  req = WSGIRequest({'REQUEST_METHOD': 'GET',
+                                           'PATH_INFO': '/',
+                                           'wsgi.input': StringIO()})
+        self.assertTrue('django_settings' in django_settings(fake_request))

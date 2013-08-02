@@ -1,4 +1,6 @@
 # Django settings for homepage project.
+import django.conf.global_settings as DEFAULT_SETTINGS
+
 import os
 
 DEBUG = True
@@ -86,6 +88,10 @@ STATICFILES_FINDERS = (
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'j0ee6taz(y5dqbfp3)dh*+7as@pbs_w25%arj4-ds#j5%zf!nj'
+
+TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
+    'homepage.contacts.context_processors.django_settings',
+)
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
