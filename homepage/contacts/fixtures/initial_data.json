@@ -4,8 +4,8 @@
     "model": "auth.user", 
     "fields": {
         "username": "admin", 
-        "first_name": "", 
-        "last_name": "", 
+        "first_name": "Mykola", 
+        "last_name": "Kharechko", 
         "is_active": true, 
         "is_superuser": true, 
         "is_staff": true, 
