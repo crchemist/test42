@@ -9,6 +9,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
+    url(r'^$', 'homepage.contacts.views.index'),
     url(r'^contact/$', include('homepage.contacts.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
