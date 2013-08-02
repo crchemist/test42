@@ -7,9 +7,33 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="css/base.css" rel="stylesheet" media="screen">
     <script type='text/javascript' src='js/knockout-2.3.0.js'></script>
+    <script type='text/javascript' src='js/main.js'></script>
   </head>
   <body>
-    <h1>42 Coffee Cups Test Assignment</h1>
+    <div class="page-header">
+        <h1>42 Coffee Cups Test Assignment</h1>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+            <p>Name: <span data-bind="first_name">Mykola</span></p>
+            <p>Last name:<span data-bind="last_name">Kharechko</span></p>
+            <p>Date of birth:<span data-bind="date_of_birth">22/05/1987</span></p>
+            <p>Bio:<span data-bind="bio">Here should be my bio.</span></p>
+        </div>
+        <div class="col-lg-6">
+            <p>Contacts</p>
+            <p>Email:<span data-bind="email">crchemist@gmail.com</span></p>
+            <p>Jabber:<span data-bind="jabber">crchemist@khavr.com</span></p>
+            <p>Skype:<span data-bind="skype">mykola_kharechko</span></p>
+            <p>Other contacts:<span data-bind="other_contacts">
+            http://facebook.com/crchemist
+            </span></p>
+        </div>
+      </div>
+    </div>
+
 
     <!-- JavaScript plugins (requires jQuery) -->
     <script src="js/jquery-1.10.2.min.js"></script>
