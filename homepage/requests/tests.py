@@ -1,16 +1,31 @@
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
+from __future__ import absolute_import
 
-Replace this with more appropriate tests for your application.
-"""
+import json
+
+from django.core.urlresolvers import reverse
 
 from django.test import TestCase
+from django.test.client import Client
 
+from .models import Request
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.assertEqual(1 + 1, 2)
+class RequestsMiddlewareTest(TestCase):
+    def setUp(self):
+        pass
+
+    def tearDown(self):
+        Request.objects.all().delete()
+
+    def test_middleware(self):
+        c = Client()
+        self.assertEqual(Request.objects.all().count(), 0)
+
+        c.get('/some_url')
+        self.assertEqual(Request.objects.all().count(), 1)
+
+    def test_get_requests(self):
+        c = Client()
+
+        response = c.get(reverse('requests_data'))
+        data = json.loads(response.content)['data']
+        self.assertTrue(reverse('requests_data') in data)
