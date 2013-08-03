@@ -14,5 +14,5 @@ def index(request):
 
 @require_http_methods(['GET'])
 def get_user_data(request):
-    user = UserProfile.objects.get()
-    return HttpResponse(user.jsonify(), mimetype='application/json')
+    profile = UserProfile.objects.get()
+    return HttpResponse(profile.jsonify(request), mimetype='application/json')

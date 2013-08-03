@@ -4,6 +4,7 @@ function ContactViewModel() {
     self.requests = ko.observable([]);
 
     self.requests_displayed = false;
+    self.is_logged_in = false;
 
     self.toggleRequestsDisplay = function() {
         if (self.requests_displayed) {
@@ -20,7 +21,9 @@ function ContactViewModel() {
 
     $.getJSON('/contact/', function(data) {
         self.user_data(data)
+        self.is_logged_in = data.is_logged_in
     });
+
 
 
 }

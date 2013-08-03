@@ -29,7 +29,10 @@ class UserProfile(models.Model):
     def __unicode__(self):
         return self.user.email
 
-    def to_dict(self):
+    def to_dict(self, request=None):
+        is_logged_in = False
+        if request is not None:
+            is_logged_in = request.user.is_authenticated()
         return {
             'first_name': self.first_name,
             'last_name': self.last_name,
@@ -38,11 +41,12 @@ class UserProfile(models.Model):
             'email': self.email,
             'jabber': self.jabber,
             'skype': self.skype,
-            'other_contacts': self.other_contacts}
+            'other_contacts': self.other_contacts,
+            'is_logged_in': is_logged_in}
 
-    def jsonify(self):
+    def jsonify(self, request=None):
         data = {}
-        for key, value in self.to_dict().items():
+        for key, value in self.to_dict(request).items():
             if isinstance(value, date):
                 value = str(value)
             data[key] = value
