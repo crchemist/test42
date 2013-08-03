@@ -20,6 +20,20 @@ class UserProfileTest(TestCase):
             password='123', first_name='fn', last_name='ln')
         self.profile = UserProfile(user=self.user)
 
+    def test_user_login(self):
+        c = Client()
+        response = c.post(reverse('user_login'), json.dumps({
+            'username': 't1',
+            'password': '123'
+        }), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+
+        response = c.post(reverse('user_login'), json.dumps({
+            'username': 't1',
+            'password': 'wrong'
+        }), content_type='application/json')
+        self.assertEqual(response.status_code, 401)
+
     def test_proxied_properties(self):
         self.assertEqual(self.user.first_name, self.profile.first_name)
         self.assertEqual(self.user.last_name, self.profile.last_name)
@@ -62,3 +76,4 @@ class ViewsTest(TestCase):
                                            'PATH_INFO': '/',
                                            'wsgi.input': StringIO()})
         self.assertTrue('django_settings' in django_settings(fake_request))
+
