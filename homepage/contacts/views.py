@@ -1,13 +1,18 @@
 from __future__ import absolute_import
 
+import json
 import os
 
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.http import require_http_methods
 
 from .models import UserProfile
+
+def json_response(data, status=200):
+    return HttpResponse(data, mimetype='application/json', status=status)
 
 def index(request):
     return HttpResponseRedirect(settings.STATIC_URL + 'index.html')
@@ -15,4 +20,17 @@ def index(request):
 @require_http_methods(['GET'])
 def get_user_data(request):
     profile = UserProfile.objects.get()
-    return HttpResponse(profile.jsonify(request), mimetype='application/json')
+    return json_response(profile.jsonify(request))
+
+
+@require_http_methods(['POST'])
+def user_login(request):
+    data = json.loads(request.body)
+    username = data['username']
+    password = data['password']
+    user = authenticate(username=username, password=password)
+    if user is not None and user.is_active:
+        login(request, user)
+        profile = UserProfile.objects.get()
+        return json_response(profile.jsonify(request))
+    return json_response(json.dumps({}), status=401)
