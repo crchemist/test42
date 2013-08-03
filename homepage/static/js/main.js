@@ -4,7 +4,7 @@ function ContactViewModel() {
     self.requests = ko.observable([]);
 
     self.requests_displayed = false;
-    self.is_logged_in = false;
+    self.is_logged_in = ko.observable(false);
 
     self.toggleRequestsDisplay = function() {
         if (self.requests_displayed) {
@@ -19,9 +19,14 @@ function ContactViewModel() {
         }
     }
 
+    self.login = function() {
+        console.log('login called.')
+        self.is_logged_in(true)
+    }
+
     $.getJSON('/contact/', function(data) {
         self.user_data(data)
-        self.is_logged_in = data.is_logged_in
+        self.is_logged_in(data.is_logged_in)
     });
 
 
