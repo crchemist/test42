@@ -71,6 +71,7 @@ function ContactViewModel() {
         this.get('#/do-logout', function() {
             $.getJSON('/contact/logout', function(response) {
                 self.anonymous_user(!response.is_logged_in)
+                redirect('#/');
             })
         });
 
