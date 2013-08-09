@@ -58,7 +58,10 @@
                 </textarea>
               </div>
             </p>
-            <a href="#/" data-bind="visible:$root.state() === 'edit-form'">Cancel</a>
+            <fieldset data-bind="visible:$root.state() === 'edit-form'">
+                <button>Save</button>
+                <a href="#/">Cancel</a>
+            </fieldset>
         </div>
         <div class="col-lg-6">
             <p>Contacts</p>
