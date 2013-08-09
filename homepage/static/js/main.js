@@ -11,7 +11,10 @@ function ContactViewModel() {
 
     self.requests_displayed = false;
     self.anonymous_user = ko.observable(true);
-    self.is_logged_in = ko.observable(false);
+
+    self.authenticated_user = ko.computed(function() {
+        return !self.anonymous_user();
+    })
 
     self.toggleRequestsDisplay = function() {
         if (self.requests_displayed) {
@@ -30,20 +33,45 @@ function ContactViewModel() {
         location.hash = '#/login';
     }
 
+    self.showEditForm = function() {
+        location.hash = '#/edit';
+    }
+
+    self.showEditForm = function() {
+        location.hash = '#/edit';
+    }
+
+    self.makeLogout = function() {
+        location.hash = '#/do-logout';
+    }
+
     $.getJSON('/contact/', function(data) {
         self.user_data(data)
-        self.is_logged_in(data.is_logged_in)
         self.anonymous_user(!data.is_logged_in)
-        console.log(self.anonymous_user())
+        console.log('Anonymous user: ' + self.anonymous_user())
     });
 
     // Client-side routes
     Sammy(function () {
         this.route('get', '#/', function() {
-           self.state('contacts')
+           $.getJSON('/contact/', function(data) {
+               self.user_data(data)
+               self.anonymous_user(!data.is_logged_in)
+               self.state('contacts')
+           });
         });
         this.get('#/login', function() {
            self.state('login-form')
+        });
+
+        this.get('#/edit', function() {
+           self.state('edit-form')
+        });
+
+        this.get('#/do-logout', function() {
+            $.getJSON('/contact/logout', function(response) {
+                self.anonymous_user(!response.is_logged_in)
+            })
         });
 
         this.post('#/do-login', function(context) {
@@ -71,6 +99,8 @@ function ContactViewModel() {
 
         });
     }).run();
+
 }
+
 
 ko.applyBindings(new ContactViewModel())
