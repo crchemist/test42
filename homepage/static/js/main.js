@@ -68,10 +68,10 @@ function ContactViewModel() {
            self.state('edit-form')
         });
 
-        this.get('#/do-logout', function() {
+        this.get('#/do-logout', function(context) {
             $.getJSON('/contact/logout', function(response) {
                 self.anonymous_user(!response.is_logged_in)
-                redirect('#/');
+                context.redirect('#/');
             })
         });
 
