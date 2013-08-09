@@ -22,82 +22,87 @@
     </div>
 
     <div class="container" data-bind="with: user_data">
-      <div class="row"
-           data-bind="visible: ($root.state() === 'contacts') || ($root.state() === 'edit-form')">
-        <div class="col-lg-6">
-            <p>Name: <span data-bind="text: first_name,
-                                      visible:$root.state() === 'contacts'">Mykola</span>
-                <input type="text"
-                       data-bind="value: first_name,
-                                  visible: $root.state() === 'edit-form'"/>
-            </p>
-            <p>Last name:<span data-bind="text: last_name,
-                                          visible:$root.state() === 'contacts'">Kharechko</span>
+      <form enctype="multipart/form-data"
+            action="#/save-user-data" method="POST">
+          <div class="row"
+               data-bind="visible: ($root.state() === 'contacts') || ($root.state() === 'edit-form')">
+            <div class="col-lg-6">
+                <p>Name: <span data-bind="text: first_name,
+                                          visible:$root.state() === 'contacts'">Mykola</span>
+                    <input type="text" name="first_name"
+                           data-bind="value: first_name,
+                                      visible: $root.state() === 'edit-form'"/>
+                </p>
+                <p>Last name:<span data-bind="text: last_name,
+                                              visible:$root.state() === 'contacts'">Kharechko</span>
 
-                <input type="text"
-                       data-bind="value: last_name,
-                                  visible: $root.state() === 'edit-form'"/>
-            </p>
-            <p>Date of birth:<span data-bind="text: date_of_birth,
-                                              visible:$root.state() === 'contacts'">22/05/1987</span>
+                    <input type="text" name="last_name"
+                           data-bind="value: last_name,
+                                      visible: $root.state() === 'edit-form'"/>
+                </p>
+                <p>Date of birth:<span data-bind="text: date_of_birth,
+                                                  visible:$root.state() === 'contacts'">22/05/1987</span>
 
-                <input type="text"
-                       data-bind="value: date_of_birth,
-                                  visible: $root.state() === 'edit-form'"/>
-            </p>
-            <p>Bio:
-              <div class="row"
-                   data-bind="visible:$root.state() === 'contacts'">
-                <textarea disabled rows="8" class="col-lg-8" data-bind="text: bio">Here should be my bio.
-                </textarea>
-              </div>
-              <div class="row"
-                   data-bind="visible:$root.state() === 'edit-form'">
-                <textarea rows="8" class="col-lg-8" style="border: 1px solid black;"
-                          data-bind="text: bio">Here should be my bio.
-                </textarea>
-              </div>
-            </p>
-            <fieldset data-bind="visible:$root.state() === 'edit-form'">
-                <button>Save</button>
-                <a href="#/">Cancel</a>
-            </fieldset>
+                    <input type="text" name="date_of_birth"
+                           data-bind="value: date_of_birth,
+                                      visible: $root.state() === 'edit-form'"/>
+                </p>
+                <p>Bio:
+                  <div class="row"
+                       data-bind="visible:$root.state() === 'contacts'">
+                    <textarea disabled rows="8" class="col-lg-8" data-bind="text: bio">Here should be my bio.
+                    </textarea>
+                  </div>
+                  <div class="row"
+                       data-bind="visible:$root.state() === 'edit-form'">
+                    <textarea rows="8" class="col-lg-8"
+                              name="bio" style="border: 1px solid black;"
+                              data-bind="text: bio">Here should be my bio.
+                    </textarea>
+                  </div>
+                </p>
+                <fieldset data-bind="visible:$root.state() === 'edit-form'">
+                    <button type="submit" name="submit">Save</button>
+                    <a href="#/">Cancel</a>
+                </fieldset>
+            </div>
+            <div class="col-lg-6">
+                <p>Contacts</p>
+                <p>Email:<span data-bind="text: email,
+                                          visible:$root.state() === 'contacts'">crchemist@gmail.com</span>
+                    <input type="text" name="email"
+                           data-bind="value: email,
+                                      visible: $root.state() === 'edit-form'"/>
+                </p>
+                <p>Jabber:<span data-bind="text: jabber,
+                                           visible:$root.state() === 'contacts'">crchemist@khavr.com</span>
+                    <input type="text" name="jabber"
+                           data-bind="value: jabber,
+                                      visible: $root.state() === 'edit-form'"/>
+                </p>
+                <p>Skype:<span data-bind="text: skype,
+                                          visible:$root.state() === 'contacts'">mykola_kharechko</span>
+                    <input type="text" name="skype"
+                           data-bind="value: skype,
+                                      visible: $root.state() === 'edit-form'"/>
+                </p>
+                <p>Other contacts:<br/>
+                  <div class="row"
+                       data-bind="visible:$root.state() === 'contacts'">
+                    <textarea disabled rows="8" class="col-lg-8" data-bind="text: other_contacts">Here should be my bio.
+                    </textarea>
+                  </div>
+                  <div class="row"
+                       data-bind="visible:$root.state() === 'edit-form'">
+                    <textarea rows="8" class="col-lg-8"
+                              name="other_contacts"
+                              style="border: 1px solid black;"
+                              data-bind="text: other_contacts">Here should be my bio.
+                    </textarea>
+                  </div>
+            </div>
         </div>
-        <div class="col-lg-6">
-            <p>Contacts</p>
-            <p>Email:<span data-bind="text: email,
-                                      visible:$root.state() === 'contacts'">crchemist@gmail.com</span>
-                <input type="text"
-                       data-bind="value: email,
-                                  visible: $root.state() === 'edit-form'"/>
-            </p>
-            <p>Jabber:<span data-bind="text: jabber,
-                                       visible:$root.state() === 'contacts'">crchemist@khavr.com</span>
-                <input type="text"
-                       data-bind="value: jabber,
-                                  visible: $root.state() === 'edit-form'"/>
-            </p>
-            <p>Skype:<span data-bind="text: skype,
-                                      visible:$root.state() === 'contacts'">mykola_kharechko</span>
-                <input type="text"
-                       data-bind="value: skype,
-                                  visible: $root.state() === 'edit-form'"/>
-            </p>
-            <p>Other contacts:<br/>
-              <div class="row"
-                   data-bind="visible:$root.state() === 'contacts'">
-                <textarea disabled rows="8" class="col-lg-8" data-bind="text: other_contacts">Here should be my bio.
-                </textarea>
-              </div>
-              <div class="row"
-                   data-bind="visible:$root.state() === 'edit-form'">
-                <textarea rows="8" class="col-lg-8"
-                          style="border: 1px solid black;"
-                          data-bind="text: other_contacts">Here should be my bio.
-                </textarea>
-              </div>
-        </div>
-      </div>
+      </form>
       <!-- Login form -->
       <div id="login-form"
            data-bind="visible: $root.state() === 'login-form'">

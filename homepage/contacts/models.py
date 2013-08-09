@@ -18,13 +18,25 @@ class UserProfile(models.Model):
     def first_name(self):
         return self.user.first_name
 
+    @first_name.setter
+    def first_name(self, value):
+        self.user.first_name = value
+
     @property
     def last_name(self):
         return self.user.last_name 
 
+    @last_name.setter
+    def last_name(self, value):
+        self.user.last_name = value
+
     @property
     def email(self):
         return self.user.email
+
+    @email.setter
+    def email(self, value):
+        self.user.email = value
 
     def __unicode__(self):
         return self.user.email
@@ -51,3 +63,9 @@ class UserProfile(models.Model):
                 value = str(value)
             data[key] = value
         return dumps(data)
+
+    def save_data(self, data, **kw):
+        for key, value in data.items():
+            setattr(self, key, value)
+        self.user.save(**kw)
+        self.save(**kw)

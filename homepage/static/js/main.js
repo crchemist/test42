@@ -70,9 +70,25 @@ function ContactViewModel() {
 
         this.get('#/do-logout', function(context) {
             $.getJSON('/contact/logout', function(response) {
-                self.anonymous_user(!response.is_logged_in)
                 context.redirect('#/');
             })
+        });
+
+        this.post('#/save-user-data', function(context) {
+            console.log(context)
+            $.ajax({
+                type: 'POST',
+                url: '/contact/update/',
+                data: JSON.stringify(context.params),
+                contentType: 'application/json',
+                dataType: 'json',
+                success: function(data) {
+                    location.hash = '#/'
+                },
+                error: function(data) {
+                }
+            })
+
         });
 
         this.post('#/do-login', function(context) {
