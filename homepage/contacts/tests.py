@@ -41,8 +41,9 @@ class UserProfileTest(TestCase):
 
     def test_to_dict(self):
         data = self.profile.to_dict()
-        required_fields = set(['first_name', 'last_name', 'date_of_birth',
-            'bio', 'email', 'jabber', 'skype', 'other_contacts', 'is_logged_in'])
+        required_fields = set(['first_name', 'photo_url',
+            'last_name', 'date_of_birth', 'bio', 'email', 'jabber',
+            'skype', 'other_contacts', 'is_logged_in'])
         available_fields = set(data.keys())
 
         self.assertTrue(isinstance(data, dict))
