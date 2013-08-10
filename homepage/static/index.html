@@ -22,7 +22,7 @@
     </div>
 
     <div class="container" data-bind="with: user_data">
-      <form enctype="multipart/form-data"
+      <form enctype="multipart/form-data" id="contact-edit" name="contact-edit"
             action="#/save-user-data" method="POST">
           <div class="row"
                data-bind="visible: ($root.state() === 'contacts') || ($root.state() === 'edit-form')">
@@ -62,9 +62,13 @@
                   </div>
                 </p>
                 <fieldset data-bind="visible:$root.state() === 'edit-form'">
+                    <p>Photo: <input name="photo" id="photo" type="file" /></p>
                     <button type="submit" name="submit">Save</button>
                     <a href="#/">Cancel</a>
                 </fieldset>
+                <div class="col-lg-7 thumbnail">
+                    <img data-bind="attr: {src: photo_url}" />
+                </div>
             </div>
             <div class="col-lg-6">
                 <p>Contacts</p>

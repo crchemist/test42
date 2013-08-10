@@ -37,10 +37,6 @@ function ContactViewModel() {
         location.hash = '#/edit';
     }
 
-    self.showEditForm = function() {
-        location.hash = '#/edit';
-    }
-
     self.makeLogout = function() {
         location.hash = '#/do-logout';
     }
@@ -75,13 +71,13 @@ function ContactViewModel() {
         });
 
         this.post('#/save-user-data', function(context) {
-            console.log(context)
+            var fd = new FormData(document.getElementById('contact-edit'))
             $.ajax({
-                type: 'POST',
                 url: '/contact/update/',
-                data: JSON.stringify(context.params),
-                contentType: 'application/json',
-                dataType: 'json',
+                type: 'POST',
+                data: fd,
+                contentType: false,
+                processData: false,
                 success: function(data) {
                     location.hash = '#/'
                 },

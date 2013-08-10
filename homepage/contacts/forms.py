@@ -12,4 +12,4 @@ class ContactForm(forms.Form):
     date_of_birth = forms.DateField()
     bio = forms.CharField()
 
-    photo = forms.FileField(required=False)
+    photo = forms.ImageField(required=False)

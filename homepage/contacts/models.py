@@ -14,6 +14,8 @@ class UserProfile(models.Model):
     date_of_birth = models.DateField()
     bio = models.TextField()
 
+    photo = models.ImageField(null=True, blank=True, upload_to='images')
+
     @property
     def first_name(self):
         return self.user.first_name
@@ -45,6 +47,11 @@ class UserProfile(models.Model):
         is_logged_in = False
         if request is not None:
             is_logged_in = request.user.is_authenticated()
+        try:
+            photo_url = self.photo.url
+        except ValueError:
+            photo_url = None 
+
         return {
             'first_name': self.first_name,
             'last_name': self.last_name,
@@ -54,7 +61,8 @@ class UserProfile(models.Model):
             'jabber': self.jabber,
             'skype': self.skype,
             'other_contacts': self.other_contacts,
-            'is_logged_in': is_logged_in}
+            'is_logged_in': is_logged_in,
+            'photo_url': photo_url}
 
     def jsonify(self, request=None):
         data = {}
