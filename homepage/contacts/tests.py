@@ -51,3 +51,8 @@ class ViewsTest(TestCase):
         response = c.get(reverse('user_data'))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.get('content-type'), 'application/json')
+        required_fields = set(['first_name', 'last_name', 'date_of_birth',
+                              'bio', 'email', 'jabber', 'skype',
+                              'other_contacts'])
+        self.assertEqual(set(json.loads(response.content).keys()),
+                         required_fields)
