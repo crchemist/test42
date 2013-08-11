@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 
 import json
+from datetime import date
 from StringIO import StringIO
 
 from django.core.urlresolvers import reverse
@@ -18,7 +19,8 @@ class UserProfileTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_user('t1', 'a@aaa.com',
             password='123', first_name='fn', last_name='ln')
-        self.profile = UserProfile(user=self.user)
+        self.profile = UserProfile(user=self.user,
+                                   date_of_birth=date(1987, 5, 22))
 
     def test_user_login(self):
         c = Client()
@@ -55,6 +57,11 @@ class UserProfileTest(TestCase):
 
         self.assertTrue(isinstance(json.loads(data_str), dict))
 
+    def test_save_data(self):
+        self.profile.save_data({'first_name': 'SD'})
+        self.assertEqual(self.profile.first_name, 'SD')
+        self.assertEqual(self.profile.user.first_name, 'SD')
+
 
     def tearDown(self):
         UserProfile.objects.filter().delete()
@@ -77,4 +84,3 @@ class ViewsTest(TestCase):
                                            'PATH_INFO': '/',
                                            'wsgi.input': StringIO()})
         self.assertTrue('django_settings' in django_settings(fake_request))
-
