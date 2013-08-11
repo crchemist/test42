@@ -15,10 +15,12 @@ from django.test.client import Client
 from .context_processors import django_settings
 from .models import UserProfile
 
+
 class UserProfileTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_user('t1', 'a@aaa.com',
-            password='123', first_name='fn', last_name='ln')
+                                             password='123',
+                                             first_name='fn', last_name='ln')
         self.profile = UserProfile(user=self.user,
                                    date_of_birth=date(1987, 5, 22))
 
@@ -74,6 +76,11 @@ class ViewsTest(TestCase):
         response = c.get(reverse('user_data'))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.get('content-type'), 'application/json')
+        required_fields = set(['first_name', 'last_name', 'date_of_birth',
+                              'bio', 'email', 'jabber', 'skype',
+                              'other_contacts'])
+        self.assertEqual(set(json.loads(response.content).keys()),
+                         required_fields)
 
     def test_settings_context_processor(self):
         processors = settings.TEMPLATE_CONTEXT_PROCESSORS

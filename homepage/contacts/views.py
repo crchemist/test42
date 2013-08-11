@@ -15,8 +15,10 @@ from .forms import ContactForm
 def json_response(data, status=200):
     return HttpResponse(data, mimetype='application/json', status=status)
 
+
 def index(request):
     return HttpResponseRedirect(settings.STATIC_URL + 'index.html')
+
 
 @require_http_methods(['GET'])
 def get_user_data(request):

@@ -9,6 +9,7 @@ from django.test.client import Client
 
 from .models import Request
 
+
 class RequestsMiddlewareTest(TestCase):
     def setUp(self):
         pass
