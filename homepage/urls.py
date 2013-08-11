@@ -8,7 +8,6 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
     url(r'^$', 'homepage.contacts.views.index'),
     url(r'^contact/$', include('homepage.contacts.urls')),
 
