@@ -2,6 +2,7 @@ from __future__ import absolute_import
 
 from .models import Request
 
+
 class RequestsStoreMiddleware(object):
     """Save path of each request to database
     """
