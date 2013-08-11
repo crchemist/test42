@@ -9,8 +9,10 @@ from django.views.decorators.http import require_http_methods
 
 from .models import UserProfile
 
+
 def index(request):
     return HttpResponseRedirect(settings.STATIC_URL + 'index.html')
+
 
 @require_http_methods(['GET'])
 def get_user_data(request):

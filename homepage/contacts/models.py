@@ -4,6 +4,7 @@ from json import dumps
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class UserProfile(models.Model):
     user = models.ForeignKey(User, unique=True)
 
@@ -20,7 +21,7 @@ class UserProfile(models.Model):
 
     @property
     def last_name(self):
-        return self.user.last_name 
+        return self.user.last_name
 
     @property
     def email(self):
