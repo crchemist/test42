@@ -14,7 +14,7 @@
     </div>
 
     <div class="container" data-bind="with: user_data">
-      <div class="row">
+      <div class="row" data-bind="visible: !$root.requests_displayed()">
         <div class="col-lg-6">
             <p>Name: <span data-bind="text: first_name">Mykola</span></p>
             <p>Last name:<span data-bind="text: last_name">Kharechko</span></p>
@@ -40,9 +40,10 @@
       </div>
       <hr/>
       <div>
-          <a href="#" data-bind="click: $root.toggleRequestsDisplay">requests</div>
+          <a href="#" data-bind="click: $root.toggleRequestsDisplay,
+                                 text: $root.requests_displayed() ? 'Back to main page':'Requests'">requests</a>
           <ul data-bind="foreach: $root.requests">
-              <li data-bind="text: $data"></li>
+            <li data-bind="text: $data"></li>
           </ul>
       </div>
     </div>

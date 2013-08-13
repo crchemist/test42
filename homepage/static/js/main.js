@@ -3,17 +3,17 @@ function ContactViewModel() {
     self.user_data = ko.observable();
     self.requests = ko.observable([]);
 
-    self.requests_displayed = false;
+    self.requests_displayed = ko.observable(false);
 
     self.toggleRequestsDisplay = function() {
-        if (self.requests_displayed) {
+        if (self.requests_displayed()) {
             // hide requests
             self.requests([]);
-            self.requests_displayed = false
+            self.requests_displayed(false)
         } else {
             $.getJSON('/requests/', function(response) {
                 self.requests(response.data);
-                self.requests_displayed = true;
+                self.requests_displayed(true);
             });
         }
     }
