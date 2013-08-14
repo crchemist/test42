@@ -6,6 +6,7 @@ from StringIO import StringIO
 
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from django.core.management import get_commands
 from django.conf import settings
 from django.core.handlers.wsgi import WSGIRequest
 
@@ -94,3 +95,10 @@ class ViewsTest(TestCase):
                                            'PATH_INFO': '/',
                                            'wsgi.input': StringIO()})
         self.assertTrue('django_settings' in django_settings(fake_request))
+
+class TestCommands(TestCase):
+
+    def test_printmodels_command(self):
+        """Test django-admin.py printmodels command
+        """
+        self.assertTrue(get_commands().get('printmodels'))
