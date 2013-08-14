@@ -82,6 +82,7 @@ function ContactViewModel() {
 
         this.post('#/save-user-data', function(context) {
             var fd = new FormData(document.getElementById('contact-edit'))
+            $('#contact-edit :input').attr('disabled', 'disabled')
             $.ajax({
                 url: '/contact/update/',
                 type: 'POST',
@@ -90,6 +91,7 @@ function ContactViewModel() {
                 processData: false,
                 success: function(data) {
                     console.log(data)
+                    $('#contact-edit :input').removeAttr('disabled')
                     if (data.errors) {
                         self.form_error(true);
                     } else {
@@ -98,6 +100,7 @@ function ContactViewModel() {
                     }
                 },
                 error: function(data) {
+                    $('#contact-edit :input').removeAttr('disabled')
                     self.form_error(true);
                 }
             })
