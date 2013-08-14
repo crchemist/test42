@@ -50,6 +50,7 @@ function ContactViewModel() {
         console.log('Anonymous user: ' + self.anonymous_user())
     });
 
+
     // Client-side routes
     Sammy(function () {
         this.route('get', '#/', function() {
@@ -70,6 +71,7 @@ function ContactViewModel() {
 
         this.get('#/edit', function() {
            self.state('edit-form')
+           $('#date_of_birth').datepicker()
         });
 
         this.get('#/do-logout', function(context) {

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/jquery-ui-1.10.3.custom.css" rel="stylesheet" media="screen">
     <link href="css/base.css" rel="stylesheet" media="screen">
 
   </head>
@@ -49,7 +50,7 @@
                 <p>Date of birth:<span data-bind="text: date_of_birth,
                                                   visible:$root.state() === 'contacts'">22/05/1987</span>
 
-                    <input type="text" name="date_of_birth"
+                    <input type="text" name="date_of_birth" id="date_of_birth"
                            data-bind="value: date_of_birth,
                                       visible: $root.state() === 'edit-form'"/>
                 </p>
@@ -174,11 +175,16 @@
 
 
     <script src="js/jquery-1.10.2.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
     <script type='text/javascript' src='js/knockout-2.3.0.js'></script>
     <script src="js/sammy.js" type="text/javascript"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-
+    <script>
+        $(function() {
+            $( "#date_of_birth" ).datepicker();
+        });
+    </script>
     <script type='text/javascript' src='js/main.js'></script>
   </body>
 </html>
