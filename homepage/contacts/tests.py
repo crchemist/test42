@@ -65,7 +65,6 @@ class UserProfileTest(TestCase):
         self.assertEqual(self.profile.first_name, 'SD')
         self.assertEqual(self.profile.user.first_name, 'SD')
 
-
     def tearDown(self):
         UserProfile.objects.filter().delete()
         User.objects.filter().delete()

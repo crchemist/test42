@@ -51,7 +51,7 @@ class UserProfile(models.Model):
         try:
             photo_url = self.photo.url
         except ValueError:
-            photo_url = None 
+            photo_url = None
 
         return {
             'first_name': self.first_name,
