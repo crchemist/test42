@@ -156,9 +156,11 @@
 
       <hr/>
       <div>
-          <a href="#" data-bind="click: $root.toggleRequestsDisplay">requests</div>
-          <ul data-bind="foreach: $root.requests">
-              <li data-bind="text: $data"></li>
+          <a href="#" data-bind="click: $root.toggleRequestsDisplay,
+                                 text: $root.requests_displayed() ? 'Back to main page':'Requests'">requests</a>
+          <ul data-bind="foreach: $root.requests,
+                         visible: $root.state() === 'requests'">
+            <li data-bind="text: $data"></li>
           </ul>
       </div>
 

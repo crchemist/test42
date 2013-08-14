@@ -8,8 +8,8 @@ from django.contrib.auth.models import User
 class UserProfile(models.Model):
     user = models.ForeignKey(User, unique=True)
 
-    jabber = models.EmailField()
     skype = models.CharField(max_length=250)
+    jabber = models.EmailField()
     other_contacts = models.TextField()
 
     date_of_birth = models.DateField()

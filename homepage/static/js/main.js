@@ -9,7 +9,7 @@ function ContactViewModel() {
     self.user_data = ko.observable();
     self.requests = ko.observable([]);
 
-    self.requests_displayed = false;
+    self.requests_displayed = ko.observable(false);
     self.anonymous_user = ko.observable(true);
 
     self.authenticated_user = ko.computed(function() {
@@ -17,14 +17,15 @@ function ContactViewModel() {
     })
 
     self.toggleRequestsDisplay = function() {
-        if (self.requests_displayed) {
+        if (self.requests_displayed()) {
             // hide requests
             self.requests([]);
-            self.requests_displayed = false
+            self.requests_displayed(false)
+            location.hash = '#/'
         } else {
             $.getJSON('/requests/', function(response) {
                 self.requests(response.data);
-                self.requests_displayed = true;
+                location.hash = '#/requests'
             });
         }
     }
@@ -44,6 +45,7 @@ function ContactViewModel() {
     $.getJSON('/contact/', function(data) {
         self.user_data(data)
         self.anonymous_user(!data.is_logged_in)
+        self.requests_displayed(false)
         console.log('Anonymous user: ' + self.anonymous_user())
     });
 
@@ -58,6 +60,11 @@ function ContactViewModel() {
         });
         this.get('#/login', function() {
            self.state('login-form')
+        });
+
+        this.get('#/requests', function() {
+           self.state('requests')
+           self.requests_displayed(true);
         });
 
         this.get('#/edit', function() {
