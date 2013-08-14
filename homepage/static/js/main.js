@@ -8,6 +8,7 @@ function ContactViewModel() {
 
     self.user_data = ko.observable();
     self.requests = ko.observable([]);
+    self.form_error = ko.observable(false);
 
     self.requests_displayed = ko.observable(false);
     self.anonymous_user = ko.observable(true);
@@ -86,9 +87,16 @@ function ContactViewModel() {
                 contentType: false,
                 processData: false,
                 success: function(data) {
-                    location.hash = '#/'
+                    console.log(data)
+                    if (data.errors) {
+                        self.form_error(true);
+                    } else {
+                        self.form_error(false);
+                        location.hash = '#/';
+                    }
                 },
                 error: function(data) {
+                    self.form_error(true);
                 }
             })
 

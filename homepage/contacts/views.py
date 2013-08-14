@@ -32,9 +32,12 @@ def get_user_data(request):
 @require_http_methods(['POST'])
 def user_data_update(request):
     form = ContactForm(request.POST, request.FILES)
+    result_data = {}
     if form.is_valid():
         UserProfile.objects.get().save_data(form.cleaned_data)
-    return json_response(json.dumps({}))
+    else:
+        result_data['errors'] = form.errors
+    return json_response(json.dumps(result_data))
 
 
 @require_http_methods(['POST'])

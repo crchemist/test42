@@ -22,6 +22,12 @@
     </div>
 
     <div class="container" data-bind="with: user_data">
+
+      <div class="alert" data-bind="visible: $root.form_error">
+            <button type="button"
+                    class="close" data-dismiss="alert">&times;</button>
+            <strong>Error!</strong> Some fields are wrong.
+      </div>
       <form enctype="multipart/form-data" id="contact-edit" name="contact-edit"
             action="#/save-user-data" method="POST">
           <div class="row"
