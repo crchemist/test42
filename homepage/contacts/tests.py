@@ -15,6 +15,7 @@ from django.test.client import Client
 
 from .context_processors import django_settings
 from .models import UserProfile
+from .templatetags.edit_link import edit_link
 
 
 class UserProfileTest(TestCase):
@@ -44,6 +45,12 @@ class UserProfileTest(TestCase):
         self.assertEqual(self.user.first_name, self.profile.first_name)
         self.assertEqual(self.user.last_name, self.profile.last_name)
         self.assertEqual(self.user.email, self.profile.email)
+
+    def test_edit_link_tag(self):
+        """Test 'edit_link' tag
+        """
+        self.assertEqual(edit_link(self.user),
+                  '/admin/auth/user/%s/' % self.user.id)
 
     def test_to_dict(self):
         data = self.profile.to_dict()
