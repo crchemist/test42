@@ -1,7 +1,7 @@
 from datetime import date
 from json import dumps
 
-from django.db import models
+from django.db import models, DatabaseError
 from django.contrib.admin.models import ADDITION, CHANGE, DELETION
 from django.db.models import signals
 from django.contrib.auth.models import User
@@ -127,10 +127,14 @@ def log_modify(sender, instance, created, **kwargs):
     obj_ct = ContentType.objects.get_for_model(sender)
     obj_id = instance.pk
     action_flag = ADDITION if created else CHANGE
-    LogModelModification.objects.create(content_type=obj_ct,
+    try:
+        LogModelModification.objects.create(content_type=obj_ct,
                           object_id=obj_id,
                           object_repr=repr(instance),
                           action_flag=action_flag)
+    except DatabaseError:
+        # db not yet synced
+        pass
 
 
 def log_delete(sender, instance, **kwargs):
@@ -148,5 +152,5 @@ def log_delete(sender, instance, **kwargs):
                           action_flag=DELETION)
 
 
-signals.post_save.connect(log_modify)
-signals.post_delete.connect(log_delete)
+signals.post_save.connect(log_modify, dispatch_uid='contacts.post_save')
+signals.post_delete.connect(log_delete, dispatch_uid='contacts.post_delete')

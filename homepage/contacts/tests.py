@@ -16,7 +16,7 @@ from django.test import TestCase
 from django.test.client import Client
 
 from .context_processors import django_settings
-from .models import UserProfile
+from .models import UserProfile, LogModelModification
 from .templatetags.edit_link import edit_link
 
 
