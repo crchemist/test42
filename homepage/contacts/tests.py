@@ -5,8 +5,10 @@ from datetime import date
 from StringIO import StringIO
 
 from django.core.urlresolvers import reverse
+from django.contrib.admin.models import ADDITION, CHANGE, DELETION
 from django.contrib.auth.models import User
 from django.core.management import get_commands
+from django.contrib.contenttypes.models import ContentType
 from django.conf import settings
 from django.core.handlers.wsgi import WSGIRequest
 
@@ -102,6 +104,51 @@ class ViewsTest(TestCase):
                                            'PATH_INFO': '/',
                                            'wsgi.input': StringIO()})
         self.assertTrue('django_settings' in django_settings(fake_request))
+
+class ModificationLogTest(TestCase):
+    def tearDownUp(self):
+        LogModelModification.objects.all().delete()
+
+    def test_modifications_log(self):
+        """Test model modification logging facility
+        """
+        # for testing LogModelModification I will use UserProfile entry
+        # test object creation
+        user = User.objects.create_user('t1', 'a@aaa.com',
+                                        password='123',
+                                        first_name='fn', last_name='ln')
+        profile = UserProfile(user=user,
+                              date_of_birth=date(1987, 5, 22))
+        profile.save()
+        profile_ct = ContentType.objects.get_for_model(profile)
+
+        log_entry = LogModelModification.objects.filter(
+                     object_id=entry.id, content_type=entry_ct).get()
+
+        self.assertEqual(log_entry.action_flag, ADDITION)
+
+        # test object modification
+        profile.first_name = 'other name'
+        profile.save()
+
+        log_entries = LogModelModification.objects.filter(
+            object_id=entry.id, content_type=entry_ct)
+
+        self.assertEqual(log_entries[0].action_flag, CHANGE)
+
+        # test object removing
+        profile.delete()
+        log_entry = LogModelModification.objects.filter(
+            object_id=entry.id, content_type=entry_ct)
+        self.assertEqual(log_entries[0].action_flag, DELETION)
+
+        log_entries_count = LogModelModification.objects.count()
+        log_entry = LogModelModification.objects.all()[0]
+        log_entry.delete()
+        last_record = LogModelModification.objects.all()[0]
+        self.assertNotEqual(last_record.content_type,
+                ContentType.objects.get_for_model(LogModelModification))
+
 
 class TestCommands(TestCase):
 
