@@ -23,6 +23,7 @@ class UserProfileTest(TestCase):
                                              first_name='fn', last_name='ln')
         self.profile = UserProfile(user=self.user,
                                    date_of_birth=date(1987, 5, 22))
+        self.profile.save()
 
     def test_user_login(self):
         c = Client()
@@ -71,6 +72,8 @@ class UserProfileTest(TestCase):
 
 
 class ViewsTest(TestCase):
+    fixtures = ['initial_data.json']
+
     def test_get_user_data(self):
         c = Client()
         response = c.get(reverse('user_data'))
@@ -78,7 +81,7 @@ class ViewsTest(TestCase):
         self.assertEqual(response.get('content-type'), 'application/json')
         required_fields = set(['first_name', 'last_name', 'date_of_birth',
                               'bio', 'email', 'jabber', 'skype',
-                              'other_contacts'])
+                              'other_contacts', 'photo_url', 'is_logged_in'])
         self.assertEqual(set(json.loads(response.content).keys()),
                          required_fields)
 
