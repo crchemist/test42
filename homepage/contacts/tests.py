@@ -48,7 +48,7 @@ class UserProfileTest(TestCase):
         data = self.profile.to_dict()
         required_fields = set(['first_name', 'photo_url',
             'last_name', 'date_of_birth', 'bio', 'email', 'jabber',
-            'skype', 'other_contacts', 'is_logged_in'])
+            'skype', 'other_contacts', 'is_logged_in', 'admin_url'])
         available_fields = set(data.keys())
 
         self.assertTrue(isinstance(data, dict))
@@ -80,7 +80,8 @@ class ViewsTest(TestCase):
         self.assertEqual(response.get('content-type'), 'application/json')
         required_fields = set(['first_name', 'last_name', 'date_of_birth',
                               'bio', 'email', 'jabber', 'skype',
-                              'other_contacts', 'photo_url', 'is_logged_in'])
+                              'other_contacts', 'photo_url', 'is_logged_in',
+                              'admin_url'])
         self.assertEqual(set(json.loads(response.content).keys()),
                          required_fields)
 

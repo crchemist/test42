@@ -3,6 +3,8 @@ from json import dumps
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
+from django.contrib.contenttypes.models import ContentType
 
 
 class UserProfile(models.Model):
@@ -53,6 +55,10 @@ class UserProfile(models.Model):
         except ValueError:
             photo_url = None
 
+        user_ct = ContentType.objects.get_for_model(User)
+        admin_url = reverse('admin:%s_%s_change' % (user_ct.app_label,
+            user_ct.name), args=(self.id, ))
+
         return {
             'first_name': self.first_name,
             'last_name': self.last_name,
@@ -63,7 +69,8 @@ class UserProfile(models.Model):
             'skype': self.skype,
             'other_contacts': self.other_contacts,
             'is_logged_in': is_logged_in,
-            'photo_url': photo_url}
+            'photo_url': photo_url,
+            'admin_url': admin_url}
 
     def jsonify(self, request=None):
         data = {}
