@@ -27,7 +27,7 @@ class Command(NoArgsCommand):
     def handle(self, *args, **options):
         """Command handler
         """
-        print self.__format_output('Model name', 'Number of entiries')
+        self.stdout.write(self.__format_output('Model name', 'Number of entiries') + '\n')
         for app in models.get_apps():
             for app_model in models.get_models(app, include_auto_created=True):
                 self.__print('%s:%s' % (app.__name__, app_model.__name__),

@@ -17,6 +17,7 @@ from django.test.client import Client
 
 from .context_processors import django_settings
 from .models import UserProfile, LogModelModification
+from .management.commands.printmodels import Command
 from .templatetags.edit_link import edit_link
 
 
@@ -155,4 +156,16 @@ class TestCommands(TestCase):
     def test_printmodels_command(self):
         """Test django-admin.py printmodels command
         """
-        self.assertTrue(get_commands().get('printmodels'))
+        command = get_commands().get('printmodels')
+        self.assertTrue(command)
+
+    def test_printmodels_output(self):
+        command = Command()
+        command.stdout = StringIO()
+        command.stderr = StringIO()
+        command.handle()
+
+        command.stdout.seek(0)
+        command.stderr.seek(0)
+        self.assertTrue('UserProfile' in command.stdout.read())
+        self.assertTrue('UserProfile' in command.stderr.read())
