@@ -123,7 +123,7 @@ class ModificationLogTest(TestCase):
         profile_ct = ContentType.objects.get_for_model(profile)
 
         log_entry = LogModelModification.objects.filter(
-                     object_id=entry.id, content_type=entry_ct).get()
+                     object_id=profile.id, content_type=profile_ct).get()
 
         self.assertEqual(log_entry.action_flag, ADDITION)
 
@@ -132,14 +132,14 @@ class ModificationLogTest(TestCase):
         profile.save()
 
         log_entries = LogModelModification.objects.filter(
-            object_id=entry.id, content_type=entry_ct)
+            object_id=profile.id, content_type=profile_ct)
 
         self.assertEqual(log_entries[0].action_flag, CHANGE)
 
         # test object removing
         profile.delete()
         log_entry = LogModelModification.objects.filter(
-            object_id=entry.id, content_type=entry_ct)
+            object_id=profile.id, content_type=profile_ct)
         self.assertEqual(log_entries[0].action_flag, DELETION)
 
         log_entries_count = LogModelModification.objects.count()

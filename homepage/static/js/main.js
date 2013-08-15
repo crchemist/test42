@@ -71,7 +71,8 @@ function ContactViewModel() {
 
         this.get('#/edit', function() {
            self.state('edit-form')
-           $('#date_of_birth').datepicker()
+           $('#date_of_birth').datepicker({dateFormat: "yy-mm-dd",
+                                           altFormat: "yy-mm-dd" })
         });
 
         this.get('#/do-logout', function(context) {
