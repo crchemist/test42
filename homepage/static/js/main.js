@@ -24,12 +24,10 @@ function ContactViewModel() {
             self.requests_displayed(false)
             location.hash = '#/'
         } else {
-            $.getJSON('/requests/', function(response) {
-                self.requests(response.data);
-                location.hash = '#/requests'
-            });
+            location.hash = '#/requests'
         }
     }
+
 
     self.showLoginForm = function() {
         location.hash = '#/login';
@@ -66,7 +64,11 @@ function ContactViewModel() {
 
         this.get('#/requests', function() {
            self.state('requests')
-           self.requests_displayed(true);
+           $.getJSON('/requests/', function(response) {
+             self.requests(response.data);
+             self.requests_displayed(true);
+           });
+           console.log('#/requests page')
         });
 
         this.get('#/edit', function() {
