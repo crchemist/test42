@@ -17,14 +17,17 @@ function ContactViewModel() {
         return !self.anonymous_user();
     })
 
-    self.toggleRequestsDisplay = function() {
+    self.toggleRequestsDisplay = function(order_by_priority) {
         if (self.requests_displayed()) {
             // hide requests
             self.requests([]);
             self.requests_displayed(false)
             location.hash = '#/'
         } else {
-            location.hash = '#/requests'
+            if (order_by_priority)
+                location.hash = '#/requests/' + 1
+            else
+                location.hash = '#/requests/' + 0
         }
     }
 
@@ -62,9 +65,9 @@ function ContactViewModel() {
            self.state('login-form')
         });
 
-        this.get('#/requests', function() {
+        this.get('#/requests/:order_by_priority', function() {
            self.state('requests')
-           $.getJSON('/requests/', function(response) {
+           $.getJSON('/requests/'+this.params['order_by_priority'], function(response) {
              self.requests(response.data);
              self.requests_displayed(true);
            });

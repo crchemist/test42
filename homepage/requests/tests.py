@@ -58,6 +58,6 @@ class RequestsMiddlewareTest(TestCase):
     def test_get_requests(self):
         c = Client()
 
-        response = c.get(reverse('requests_data'))
+        response = c.get(reverse('requests_data', args=('0',)))
         data = json.loads(response.content)['data']
-        self.assertTrue(reverse('requests_data') in data)
+        self.assertTrue(reverse('requests_data', args=('0',)) in data)

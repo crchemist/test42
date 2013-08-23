@@ -119,7 +119,7 @@ TEMPLATE_DIRS = (
 )
 
 # Urls which match pattern will be marked as prioritizied
-PRIORITY_REQUESTS_PATT = re.compile(r'/(contact.*)|(favicon.*)')
+PRIORITY_REQUESTS_PATT = re.compile(r'/contact.*')
 
 INSTALLED_APPS = (
     'django.contrib.auth',

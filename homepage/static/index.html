@@ -165,8 +165,10 @@
 
       <hr/>
       <div>
-          <a href="#" data-bind="click: $root.toggleRequestsDisplay,
-                                 text: $root.requests_displayed() ? 'Back to main page':'Requests'">requests</a>
+          <a href="#" data-bind="click: $root.toggleRequestsDisplay.bind($data, false),
+                                 text: $root.requests_displayed() ? 'Back to main page':'Recent requests'">requests</a>
+          <a href="#" data-bind="click: $root.toggleRequestsDisplay.bind(true),
+                                 text: $root.requests_displayed() ? '':'Priority requests'">requests</a>
           <ul data-bind="foreach: $root.requests,
                          visible: $root.state() === 'requests'">
             <li data-bind="text: $data"></li>
