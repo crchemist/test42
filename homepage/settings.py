@@ -2,6 +2,7 @@
 import django.conf.global_settings as DEFAULT_SETTINGS
 
 import os
+import re
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -116,6 +117,9 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
+
+# Urls which match pattern will be marked as prioritizied
+PRIORITY_REQUESTS_PATT = re.compile(r'/(contact.*)|(favicon.*)')
 
 INSTALLED_APPS = (
     'django.contrib.auth',
