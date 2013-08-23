@@ -1,8 +1,10 @@
 from __future__ import absolute_import
 
 import json
+import re
 from StringIO import StringIO
 
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.core.handlers.wsgi import WSGIRequest
 
@@ -35,6 +37,23 @@ class RequestsMiddlewareTest(TestCase):
                            'wsgi.input': StringIO()})
         requests_middleware.process_request(req)
         self.assertEqual(Request.objects.filter(url=path).count(), 1)
+
+    def test_priority_requests(self):
+        settings.PRIORITY_REQUESTS_PATT = re.compile(r'/test')
+        requests_middleware = RequestsStoreMiddleware()
+        path = '/test-url2'
+        req = WSGIRequest({'REQUEST_METHOD': 'GET',
+                           'PATH_INFO': path,
+                           'wsgi.input': StringIO()})
+        requests_middleware.process_request(req)
+        self.assertEqual(Request.objects.filter(url=path).get().priority, 1)
+
+        path = '/1test-url2'
+        req = WSGIRequest({'REQUEST_METHOD': 'GET',
+                           'PATH_INFO': path,
+                           'wsgi.input': StringIO()})
+        requests_middleware.process_request(req)
+        self.assertEqual(Request.objects.filter(url=path).get().priority, 0)
 
     def test_get_requests(self):
         c = Client()
