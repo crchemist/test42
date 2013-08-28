@@ -15,7 +15,7 @@ RECENT_REQUESTS_COUNT = 10
 def get_requests(request, order_by_priority):
     order_by_priority = int(order_by_priority)
 
-    requests = Request.objects.all().order_by('-created')
+    requests = Request.objects.all().order_by('created')
     if order_by_priority:
         requests = requests.filter(priority=1).order_by('-priority')
 
