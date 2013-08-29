@@ -104,6 +104,7 @@ function ContactViewModel() {
                         console.log(self.errors())
                     } else {
                         self.form_error(false);
+                        self.errors({})
                         location.hash = '#/';
                     }
                 },
