@@ -41,6 +41,9 @@
                     <input type="text" name="first_name"
                            data-bind="value: first_name,
                                       visible: $root.state() === 'edit-form'"/>
+                    <label class="control-label" for="first_name"
+                           data-bind="visible:$root.errors()['first_name'],
+                                      text:$root.errors()['first_name']"></label>
                 </p>
                 <p>Last name:<span data-bind="text: last_name,
                                               visible:$root.state() === 'contacts'">Kharechko</span>
@@ -48,6 +51,9 @@
                     <input type="text" name="last_name"
                            data-bind="value: last_name,
                                       visible: $root.state() === 'edit-form'"/>
+                    <label class="control-label" for="last_name"
+                           data-bind="visible:$root.errors()['last_name'],
+                                      text:$root.errors()['last_name']"></label>
                 </p>
                 <p>Date of birth:<span data-bind="text: date_of_birth,
                                                   visible:$root.state() === 'contacts'">22/05/1987</span>
@@ -55,6 +61,9 @@
                     <input type="text" name="date_of_birth" id="date_of_birth"
                            data-bind="value: date_of_birth,
                                       visible: $root.state() === 'edit-form'"/>
+                    <label class="control-label" for="date_of_birth"
+                           data-bind="visible:$root.errors()['date_of_birth'],
+                                      text:$root.errors()['date_of_birth']"></label>
                 </p>
                 <p>Bio:
                   <div class="row"
@@ -68,6 +77,9 @@
                               name="bio" style="border: 1px solid black;"
                               data-bind="text: bio">Here should be my bio.
                     </textarea>
+                    <label class="control-label" for="bio"
+                           data-bind="visible:$root.errors()['bio'],
+                                      text:$root.errors()['bio']"></label>
                   </div>
                 </p>
                 <fieldset data-bind="visible:$root.state() === 'edit-form'">
@@ -86,18 +98,28 @@
                     <input type="text" name="email"
                            data-bind="value: email,
                                       visible: $root.state() === 'edit-form'"/>
+
+                    <label class="control-label" for="email"
+                           data-bind="visible:$root.errors()['email'],
+                                      text:$root.errors()['email']"></label>
                 </p>
                 <p>Jabber:<span data-bind="text: jabber,
                                            visible:$root.state() === 'contacts'">crchemist@khavr.com</span>
                     <input type="text" name="jabber"
                            data-bind="value: jabber,
                                       visible: $root.state() === 'edit-form'"/>
+                    <label class="control-label" for="jabber"
+                           data-bind="visible:$root.errors()['jabber'],
+                                      text:$root.errors()['jabber']"></label>
                 </p>
                 <p>Skype:<span data-bind="text: skype,
                                           visible:$root.state() === 'contacts'">mykola_kharechko</span>
                     <input type="text" name="skype"
                            data-bind="value: skype,
                                       visible: $root.state() === 'edit-form'"/>
+                    <label class="control-label" for="skype"
+                           data-bind="visible:$root.errors()['skype'],
+                                      text:$root.errors()['skype']"></label>
                 </p>
                 <p>Other contacts:<br/>
                   <div class="row"
@@ -112,6 +134,9 @@
                               style="border: 1px solid black;"
                               data-bind="text: other_contacts">Here should be my bio.
                     </textarea>
+                    <label class="control-label" for="other_contacts"
+                           data-bind="visible:$root.errors()['other_contacts'],
+                                      text:$root.errors()['other_contacts']"></label>
                   </div>
             </div>
         </div>
