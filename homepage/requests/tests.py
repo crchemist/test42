@@ -51,7 +51,7 @@ class RequestsMiddlewareTest(TestCase):
                            'PATH_INFO': path,
                            'wsgi.input': StringIO()})
         self.requests_middleware.process_request(req)
-        self.assertEqual(Request.objects.filter(url=path).get().priority, 0)
+        self.assertEqual(Request.objects.filter(url=path).get().priority, 1)
 
     def test_get_requests(self):
         c = Client()
@@ -59,6 +59,14 @@ class RequestsMiddlewareTest(TestCase):
         response = c.get(reverse('requests_data', args=('0',)))
         data = json.loads(response.content)['data']
         self.assertTrue(reverse('requests_data', args=('0',)) in data)
+
+    def test_no_js_page(self):
+        response = self.client.get(reverse('requests_view'))
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.post(reverse('requests_view'),
+                                    {'action': -1, 'request_id': 1})
+        self.assertEqual(response.status_code, 200)
 
     def test_get_requests_with_priority(self):
         settings.PRIORITY_REQUESTS_PATT = re.compile(r'/test.*')
