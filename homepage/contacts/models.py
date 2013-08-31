@@ -83,6 +83,9 @@ class UserProfile(models.Model):
         return dumps(data)
 
     def save_data(self, data, **kw):
+        if data.get('photo') is None:
+            data = data.copy()
+            data.pop('photo')
         for key, value in data.items():
             setattr(self, key, value)
         self.user.save(**kw)
