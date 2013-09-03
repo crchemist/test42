@@ -85,7 +85,7 @@ class UserProfile(models.Model):
     def save_data(self, data, **kw):
         if data.get('photo') is None:
             data = data.copy()
-            data.pop('photo')
+            data.pop('photo', None)
         for key, value in data.items():
             setattr(self, key, value)
         self.user.save(**kw)

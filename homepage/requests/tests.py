@@ -68,6 +68,31 @@ class RequestsMiddlewareTest(TestCase):
                                     {'action': -1, 'request_id': 1})
         self.assertEqual(response.status_code, 200)
 
+        req_1_priority = Request.objects.get(id=1).priority
+
+        response = self.client.post(reverse('requests_view'),
+                                    {'action': -1, 'request_id': 1})
+        self.assertEqual(Request.objects.get(id=1).priority, req_1_priority -1)
+
+
+    def test_no_js_page_template(self):
+        # make two responses with default priority
+        self.client.get(reverse('requests_view'))
+        self.client.get('/some-url')
+
+        response = self.client.get(reverse('requests_view'))
+        some_url_pos = response.content.find('/some-url')
+
+        # yet one new response
+        self.client.get(reverse('requests_view'))
+
+        # increase '/some-url' priority
+        Request.objects.filter(url='/some-url').update(priority=10)
+
+        response = self.client.get(reverse('requests_view'))
+        some_url_pos2 = response.content.find('/some-url')
+        self.assertTrue(some_url_pos2 < some_url_pos)
+
     def test_get_requests_with_priority(self):
         settings.PRIORITY_REQUESTS_PATT = re.compile(r'/test.*')
 
